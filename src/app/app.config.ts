@@ -1,23 +1,25 @@
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
-import { provideBrowserGlobalErrorListeners } from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ToastrModule } from 'ngx-toastr';
+// src/app/app.config.ts
 
+import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { provideClientHydration } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from './app.routes';
-import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
+import { ToastrModule } from 'ngx-toastr';
+import { HttpClientModule } from '@angular/common/http'; // ¡Añadido!
+
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideRouter(routes),
-    provideClientHydration(withEventReplay()),
+    provideRouter(routes, withComponentInputBinding()),
+    provideClientHydration(),
     importProvidersFrom(
-      BrowserAnimationsModule, // necesario para ngx-toastr
+      BrowserAnimationsModule,
       ToastrModule.forRoot({
         positionClass: 'toast-top-right',
         preventDuplicates: true,
-      })
-    )
-  ]
+      }),
+      HttpClientModule // Agregamos el módulo HTTP
+    ),
+  ],
 };
