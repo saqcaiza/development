@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs'; 
 
 // ⚠️ VERIFICAR: Usa el puerto HTTPS correcto de tu backend (44354)
-const API_URL = 'https://localhost:44354/api/Tarjeta'; 
+const API_URL = 'http://localhost:10015/api/Tarjeta'; 
 
 // Definimos la interfaz para asegurar el tipado
 export interface TarjetaCredito {
